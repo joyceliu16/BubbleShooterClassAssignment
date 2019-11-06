@@ -57,26 +57,7 @@ public class Board extends JPanel implements Runnable{
                 int colour = (int)(Math.random()*5+1);
                 int x = i*BUBBLE_WIDTH+offset;
                 int y = j*BUBBLE_HEIGHT;
-                switch (colour){
-                    case 1:
-                        row.add(new Bubble(x,y,"src/images/blue_bubble.png"));
-                        break;
-                    case 2:
-                        row.add(new Bubble(x,y,"src/images/green_bubble.png"));
-                        break;
-                    case 3:
-                        row.add(new Bubble(x,y,"src/images/orange_bubble.png"));
-                        break;
-                    case 4:
-                        row.add(new Bubble(x,y,"src/images/purple_bubble.png"));
-                        break;
-                    case 5:
-                        row.add(new Bubble(x,y,"src/images/red_bubble.png"));
-                        break;
-                    default:
-                        row.add(new Bubble(i*BUBBLE_WIDTH,y,"src/images/blue_bubble.png"));
-                        break;
-                }
+                row.add(new Bubble(x,y, colour));
             }
         }
         Toolkit.getDefaultToolkit().sync();

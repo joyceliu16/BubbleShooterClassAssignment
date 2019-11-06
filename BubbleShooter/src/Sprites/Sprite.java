@@ -21,15 +21,14 @@ public class Sprite {
     protected boolean visible;
     protected Image image;
 
-    public Sprite(int x, int y, String imageName) {
+    public Sprite(int x, int y) {
 
         this.x = x;
         this.y = y;
-        loadImage(imageName);
         visible = true;
     }
 
-    private void loadImage(String imageName) {
+    public void loadImage(String imageName) {
 
         ImageIcon ii = new ImageIcon(imageName);
         image = ii.getImage();
