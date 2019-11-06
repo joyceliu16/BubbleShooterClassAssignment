@@ -11,9 +11,7 @@ package Sprites;
  */
 public class Bubble extends Sprite{
     
-    public Bubble(int x, int y){
-        super(x,y);
-        
-                
+    public Bubble(int x, int y, String imageName){      
+        super(x,y, imageName);    
     }
 }

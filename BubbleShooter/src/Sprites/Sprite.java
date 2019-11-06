@@ -5,8 +5,8 @@
  */
 package Sprites;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -21,19 +21,24 @@ public class Sprite {
     protected boolean visible;
     protected Image image;
 
-    public Sprite(int x, int y) {
+    public Sprite(int x, int y, String imageName) {
 
         this.x = x;
         this.y = y;
+        loadImage(imageName);
         visible = true;
     }
 
-    protected void loadImage(String imageName) {
+    private void loadImage(String imageName) {
 
         ImageIcon ii = new ImageIcon(imageName);
         image = ii.getImage();
         width = image.getWidth(null);
         height = image.getHeight(null);
+    }
+    
+    public void update(Graphics g){
+        g.drawImage(this.image, this.x, this.y, null);
     }
    
     public Image getImage() {
@@ -42,6 +47,14 @@ public class Sprite {
 
     public int getX() {
         return x;
+    }
+    
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
     }
 
     public int getY() {
