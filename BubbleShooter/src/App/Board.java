@@ -18,11 +18,10 @@ import Sprites.Bubble;
 public class Board extends JPanel implements Runnable, MouseMotionListener {
     private final int BUBBLE_WIDTH = 15;
     private final int BUBBLE_HEIGHT = 15;
-    private final int ROW_LENGTH = 5;
+    private final int ROW_LENGTH = 81;
     private final int COL_LENGTH = 10;
     private Thread animator;
-    private java.util.List<Bubble> row = new ArrayList<>();
-    private java.util.List<java.util.List> col = new ArrayList<>();
+    private java.util.List<java.util.List<Bubble>> grid = new ArrayList<>();
 
     public Board() {
         initBoard();
@@ -57,11 +56,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
         super.paintComponent(g);
         updateBubble(g);
     }
-
+    
     private void initBubble() {
         int offset;
         for (int j = 0; j < COL_LENGTH; j++) {
-            row.clear();
+            grid.add(new ArrayList<Bubble>());
             if (j % 2 == 0) {
                 offset = 5;
             } else {
@@ -71,17 +70,14 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
                 int colour = (int) (Math.random() * 5 + 1);
                 int x = i * BUBBLE_WIDTH + offset;
                 int y = j * BUBBLE_HEIGHT;
-                row.add(new Bubble(x, y, colour));
+                grid.get(j).add(new Bubble(x, y, colour));
             }
-            col.add(row);
-            System.out.println(col);
-
         }
         Toolkit.getDefaultToolkit().sync();
     }
 
     private void updateBubble(Graphics g) {
-        for (java.util.List<Bubble> j : col) {
+        for (java.util.List<Bubble> j : grid) {
             for (Bubble i : j) {
                 i.update(g);
             }
