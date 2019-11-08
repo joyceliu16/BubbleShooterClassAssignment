@@ -31,7 +31,7 @@ public class Cannon extends Sprite {
     
     public void update(Graphics g, int angle){
         Graphics2D g2 = (Graphics2D) g;
-        AffineTransform rotation = transform.getRotateInstance(Math.toRadians(angle-90), this.width/2, this.height/2);
+        AffineTransform rotation = transform.getRotateInstance(Math.toRadians(angle+90), this.width/2, this.height/2);
         op = new AffineTransformOp(rotation, AffineTransformOp.TYPE_BILINEAR);
         g2.drawImage(op.filter(bi, null), this.x, this.y, null);
     }

@@ -97,7 +97,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
         int angle;
         try{
             //angle = (int)Math.toDegrees(Math.atan((mouseY-CANNON_Y)/(mouseX-CANNON_X)));
-            angle = (int)Math.toDegrees(Math.atan((mouseY-CANNON_Y)/(mouseX-CANNON_X)));
+            angle = (int)Math.toDegrees(Math.atan2((mouseY-CANNON_Y), (mouseX-CANNON_X)));
         }catch (Exception e){
             angle = 0;
         }
