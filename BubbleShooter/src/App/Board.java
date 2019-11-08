@@ -21,6 +21,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
     private final int BUBBLE_HEIGHT = 15;
     private final int ROW_LENGTH = 81;
     private final int COL_LENGTH = 10;
+    private final int CANNON_X = 580;
+    private final int CANNON_Y = 500;
+    private int mouseX, mouseY;
     private Thread animator;
     private java.util.List<java.util.List<Bubble>> grid = new ArrayList<>();
     private Cannon can;
@@ -47,8 +50,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
+    
 
     @Override
     public void addNotify() {
@@ -66,7 +71,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
     }
     
     private void initCannon() throws Exception{
-        can = new Cannon(200, 400);
+        can = new Cannon(CANNON_X, CANNON_Y);
     }
     
     private void initBubble() {
@@ -89,7 +94,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
     }
     
     private void updateCannon(Graphics g) {
-        can.update(g, 1);
+        int angle = (int)(mouseY-CANNON_Y)/(mouseX-CANNON_X);
+        can.update(g, angle);
     }
 
     private void updateBubble(Graphics g) {
