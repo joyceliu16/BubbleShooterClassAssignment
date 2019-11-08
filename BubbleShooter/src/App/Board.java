@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import Sprites.Bubble;
+import Sprites.Cannon;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
     private final int COL_LENGTH = 10;
     private Thread animator;
     private java.util.List<java.util.List<Bubble>> grid = new ArrayList<>();
+    private Cannon can;
 
     public Board() {
         initBoard();
@@ -32,6 +34,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
         addMouseMotionListener(this);
         setBackground(Color.BLACK);
         initBubble();
+        try{
+        initCannon();
+        }catch(Exception e){
+            System.out.println("No Spin");
+        }
     }
 
     @Override
@@ -55,6 +62,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         updateBubble(g);
+        updateCannon(g);
+    }
+    
+    private void initCannon() throws Exception{
+        can = new Cannon(200, 400);
     }
     
     private void initBubble() {
@@ -74,6 +86,10 @@ public class Board extends JPanel implements Runnable, MouseMotionListener {
             }
         }
         Toolkit.getDefaultToolkit().sync();
+    }
+    
+    private void updateCannon(Graphics g) {
+        can.update(g, 1);
     }
 
     private void updateBubble(Graphics g) {
