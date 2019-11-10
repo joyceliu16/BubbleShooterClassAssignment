@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Sprites;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.geom.*;
-import javax.imageio.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
 
-/**
- *
- * @author Ash
- */
+
 public class Cannon extends Sprite {
     private final String imageName = "src/images/cannon.png"; 
     private final BufferedImage bi;
