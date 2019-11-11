@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Sprites;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
-/**
- *
- * @author S346795925
- */
 public class Sprite {
 
     protected int x;
@@ -37,7 +30,10 @@ public class Sprite {
     }
     
     public void update(Graphics g){
-        g.drawImage(this.image, this.x, this.y, null);
+       // if bubble is not shot, show it
+        if(visible) {
+            g.drawImage(this.image, this.x, this.y, null);
+        }
     }
    
     public Image getImage() {
