@@ -16,9 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements Runnable, MouseMotionListener, MouseListener {
-    private final int BUBBLE_WIDTH = 15;
-    private final int BUBBLE_HEIGHT = 15;
-    private final int ROW_LENGTH = 81;
+    private final int BUBBLE_WIDTH = 30;
+    private final int BUBBLE_HEIGHT = 30;
+    private final int ROW_LENGTH = 40;
     private final int COL_LENGTH = 10;
     private final int CANNON_X = 580;
     private final int CANNON_Y = 500;
@@ -86,7 +86,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
             if (j % 2 == 0) {
                 offset = 5;
             } else {
-                offset = 0;
+                offset = 17;
             }
             for (int i = 0; i < ROW_LENGTH; i++) {
                 int colour = (int) (Math.random() * 5 + 1);
