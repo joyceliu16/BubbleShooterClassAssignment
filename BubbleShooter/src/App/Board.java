@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 public class Board extends JPanel implements Runnable, MouseMotionListener, MouseListener {
     private final int BUBBLE_WIDTH = 30;
-    private final int BUBBLE_HEIGHT = 30;
+    private final int BUBBLE_HEIGHT = BUBBLE_WIDTH;
     private final int ROW_LENGTH = 40;
     private final int COL_LENGTH = 10;
     private final int CANNON_X = 580;
@@ -26,6 +26,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     private final int CANNON_HEIGHT = 64;
     private final int CANNONCENTER_X = CANNON_X+CANNON_WIDTH/2;
     private final int CANNONCENTER_Y= CANNON_Y+CANNON_HEIGHT/2;
+    private final double K_VALUE=1;
 
     private int mouseX, mouseY;
     private Thread animator;
@@ -84,9 +85,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         for (int j = 0; j < COL_LENGTH; j++) {
             grid.add(new ArrayList<Bubble>());
             if (j % 2 == 0) {
-                offset = 5;
+                offset = 0;
             } else {
-                offset = 17;
+                offset = 15;
             }
             for (int i = 0; i < ROW_LENGTH; i++) {
                 int colour = (int) (Math.random() * 5 + 1);
@@ -185,19 +186,18 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         //int shootAngle = Utils.calculateBulletAngle(xc, yc, xm, ym);
 
         // calculate from the bottom row
-       
         int row=COL_LENGTH -1;
          if (ym<COL_LENGTH*BUBBLE_HEIGHT){
                row=ym/BUBBLE_HEIGHT;
            }      
-         do {
+         //do {
             List<Bubble> rowBubbleList = grid.get(row);
             int yb = rowBubbleList.get(0).getY();
-            double ratio = (double)(xm-xc)/(double)(ym-yc);
+            double ratio = K_VALUE*(double)(xm-xc)/(double)(ym-yc);
             int xb = xc + (int)(ratio*(yb-yc));
             //System.out.println("X calculated is (x,y): " + xb + ", " + yb);
             for(Bubble bub: rowBubbleList) {
-                // Bubble dimension is 32X32
+                
                 if(bub.isVisible())  {
                     if(xb>= bub.getX() && xb < (bub.getX() + this.BUBBLE_WIDTH)) {
                         bub.setVisible(false);
@@ -209,11 +209,11 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
                       }
                    }
                }
-            row--;
+            //row--;
            }
-         while (row>=0);
+         //while (row>=0);
         
-    }
+    
     
     
 }
