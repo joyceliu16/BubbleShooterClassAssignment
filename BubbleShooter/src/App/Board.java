@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 public class Board extends JPanel implements Runnable, MouseMotionListener, MouseListener {
 
     private final int BUBBLE_WIDTH = 30;
-    private final int BUBBLE_HEIGHT = 30;
-    private final int ROW_LENGTH = 39;
+    private final int BUBBLE_HEIGHT = BUBBLE_WIDTH;
+    private final int ROW_LENGTH = 39; 
     private final int COL_LENGTH = 10;
     private final int CANNON_X = 580;
     private final int CANNON_Y = 500;
@@ -34,7 +34,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     private List<List<Bubble>> grid = new ArrayList<>();
     private Cannon can;
 
-    public Board(int difficulty) {
+  public Board(int difficulty) {
         initBoard(difficulty);
     }
 
@@ -88,9 +88,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         for (int j = 0; j < COL_LENGTH; j++) {
             grid.add(new ArrayList<Bubble>());
             if (j % 2 == 0) {
-                offset = 5;
+                offset = 0;
             } else {
-                offset = 17;
+                offset = 15;
             }
             for (int i = 0; i < ROW_LENGTH; i++) {
                 int colour = (int) (Math.random() * 5 + 1);
@@ -160,7 +160,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     @Override
     public void mouseClicked(MouseEvent e) {
         // calculate the bubble that is shot
-        //System.out.println("Mouse click position: " + e.getX() + ", " + e.getY());
         shotBubble(e.getX(), e.getY());
     }
 
@@ -211,5 +210,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         }
 
     }
+
 
 }
