@@ -31,7 +31,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     private Thread animator;
     private List<List<Bubble>> grid = new ArrayList<>();
     private Cannon can;
-
+    private int count=0;
     public Board() {
         initBoard();
     }
@@ -157,7 +157,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     @Override
     public void mouseClicked(MouseEvent e) {
            // calculate the bubble that is shot
-        System.out.println("Mouse click position: " + e.getX() + ", " + e.getY());
+      //  System.out.println("Mouse click position: " + e.getX() + ", " + e.getY());
         shotBubble(e.getX(), e.getY());
     }
 
@@ -185,27 +185,33 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         //int shootAngle = Utils.calculateBulletAngle(xc, yc, xm, ym);
 
         // calculate from the bottom row
-        for(int row = COL_LENGTH -1; row >= 0; row --) {
+       
+        int row=COL_LENGTH -1;
+         if (ym<COL_LENGTH*BUBBLE_HEIGHT){
+               row=ym/BUBBLE_HEIGHT;
+           }      
+         do {
             List<Bubble> rowBubbleList = grid.get(row);
             int yb = rowBubbleList.get(0).getY();
             double ratio = (double)(xm-xc)/(double)(ym-yc);
             int xb = xc + (int)(ratio*(yb-yc));
-            System.out.println("X calculated is (x,y): " + xb + ", " + yb);
+            //System.out.println("X calculated is (x,y): " + xb + ", " + yb);
             for(Bubble bub: rowBubbleList) {
                 // Bubble dimension is 32X32
                 if(bub.isVisible())  {
                     if(xb>= bub.getX() && xb < (bub.getX() + this.BUBBLE_WIDTH)) {
                         bub.setVisible(false);
-                        System.out.println("hit bubble: " + bub.getX() + ", " + bub.getY());
+                        count++;
+                      //  System.out.println("hit bubble: " + bub.getX() + ", " + bub.getY());
+                      System.out.println("You have hit " + count + " bubbles!");
                         // only hit the most bottom row
                         return;
-                    }
-                }
-                    
-            
-            }
-            
-        }
+                      }
+                   }
+               }
+            row--;
+           }
+         while (row>=0);
         
     }
     
