@@ -13,7 +13,7 @@ public class Application extends JFrame {
 
     private void initUI() {
 
-        add(new Board());
+        add(new Board(1));
 
         setSize(1250, 720);
 
