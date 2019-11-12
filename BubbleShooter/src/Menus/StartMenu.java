@@ -5,6 +5,8 @@
  */
 package Menus;
 
+import App.Application;
+
 /**
  *
  * @author adare
@@ -31,7 +33,7 @@ public class StartMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(java.awt.Color.white);
@@ -81,7 +83,7 @@ public class StartMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        new Application().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
