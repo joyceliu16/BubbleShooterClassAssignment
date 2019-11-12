@@ -2,6 +2,7 @@
 package App;
 
 
+import Menus.StartMenu;
 import Sprites.Bubble;
 import Sprites.Cannon;
 import java.awt.Color;
@@ -26,8 +27,9 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     private final int CANNON_HEIGHT = 64;
     private final int CANNONCENTER_X = CANNON_X+CANNON_WIDTH/2;
     private final int CANNONCENTER_Y= CANNON_Y+CANNON_HEIGHT/2;
-
-    private int mouseX, mouseY;
+    private final int TIME_LIMIT = 5; //in seconds
+    
+    private int mouseX, mouseY, score, cyclesLeft;
     private Thread animator;
     private List<List<Bubble>> grid = new ArrayList<>();
     private Cannon can;
@@ -42,6 +44,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         addMouseListener(this);
         setBackground(Color.BLACK);
         initBubble();
+        score = 0;
+        cyclesLeft = TIME_LIMIT*40; //Convert seconds to cycles
         try{
         initCannon();
         }catch(Exception e){
@@ -101,7 +105,6 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     private void updateCannon(Graphics g) {
         int angle;
         try{
-            //angle = (int)Math.toDegrees(Math.atan((mouseY-CANNON_Y)/(mouseX-CANNON_X)));
             angle = (int)Math.toDegrees(Math.atan2((mouseY-CANNONCENTER_Y), (mouseX-CANNONCENTER_X)));
         }catch (Exception e){
             angle = 0;
@@ -118,7 +121,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     }
 
     private void cycle() {
-
+        cyclesLeft--;
     }
 
     @Override
@@ -128,7 +131,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
 
         beforeTime = System.currentTimeMillis();
 
-        while (true) {
+        while (cyclesLeft > 0) {
 
             cycle();
             repaint();
@@ -152,12 +155,13 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
 
             beforeTime = System.currentTimeMillis();
         }
+        //new StartMenu().setVisible(true);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
            // calculate the bubble that is shot
-        System.out.println("Mouse click position: " + e.getX() + ", " + e.getY());
+        //System.out.println("Mouse click position: " + e.getX() + ", " + e.getY());
         shotBubble(e.getX(), e.getY());
     }
 
@@ -190,13 +194,14 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
             int yb = rowBubbleList.get(0).getY();
             double ratio = (double)(xm-xc)/(double)(ym-yc);
             int xb = xc + (int)(ratio*(yb-yc));
-            System.out.println("X calculated is (x,y): " + xb + ", " + yb);
+            //System.out.println("X calculated is (x,y): " + xb + ", " + yb);
             for(Bubble bub: rowBubbleList) {
                 // Bubble dimension is 32X32
                 if(bub.isVisible())  {
                     if(xb>= bub.getX() && xb < (bub.getX() + this.BUBBLE_WIDTH)) {
                         bub.setVisible(false);
-                        System.out.println("hit bubble: " + bub.getX() + ", " + bub.getY());
+                        //System.out.println("hit bubble: " + bub.getX() + ", " + bub.getY());
+                        score++;
                         // only hit the most bottom row
                         return;
                     }

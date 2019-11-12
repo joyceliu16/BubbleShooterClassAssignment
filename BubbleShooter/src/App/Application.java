@@ -16,10 +16,9 @@ public class Application extends JFrame {
         add(new Board());
 
         setSize(1250, 720);
-        //pack();
 
-        setTitle("Application");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Bubble Vacuum");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
     }    
     
