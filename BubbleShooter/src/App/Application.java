@@ -6,14 +6,14 @@ import javax.swing.JFrame;
 
 public class Application extends JFrame {
     
-    public Application() {
+    public Application(int difficulty) {
 
-        initUI();
+        initUI(difficulty);
     }
 
-    private void initUI() {
+    private void initUI(int difficulty) {
 
-        add(new Board(1));
+        add(new Board(difficulty));
 
         setSize(1250, 720);
 
@@ -22,11 +22,11 @@ public class Application extends JFrame {
         setLocationRelativeTo(null);
     }    
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         
         EventQueue.invokeLater(() -> {
-            Application ex = new Application();
+            Application ex = new Application(difficulty);
             ex.setVisible(true);
         });
-    }
+    }*/
 }

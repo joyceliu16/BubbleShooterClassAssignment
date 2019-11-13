@@ -1,6 +1,7 @@
 package App;
 
 import Menus.StartMenu;
+import Menus.EndGame;
 import Sprites.Bubble;
 import Sprites.Cannon;
 import java.awt.Color;
@@ -45,7 +46,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         setBackground(Color.BLACK);
         initBubble();
         score = 0;
-        limit = difficulty * 20;
+        limit = difficulty * 2;
         cyclesLeft = limit * 40; //Convert seconds to cycles
         try {
             initCannon();
@@ -154,7 +155,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
 
             beforeTime = System.currentTimeMillis();
         }
-        new StartMenu().setVisible(true);
+        new EndGame().setVisible(true);
+        //dispose();
     }
 
     @Override
