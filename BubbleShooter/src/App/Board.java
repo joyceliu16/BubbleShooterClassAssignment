@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.awt.Window;
+import javax.swing.SwingUtilities;
 
 public class Board extends JPanel implements Runnable, MouseMotionListener, MouseListener {
 
@@ -46,7 +48,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         setBackground(Color.BLACK);
         initBubble();
         score = 0;
-        limit = difficulty * 2;
+        limit = difficulty * 20;
         cyclesLeft = limit * 40; //Convert seconds to cycles
         try {
             initCannon();
@@ -156,7 +158,8 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
             beforeTime = System.currentTimeMillis();
         }
         new EndGame().setVisible(true);
-        //dispose();
+        Window win = SwingUtilities.getWindowAncestor(this);
+        win.dispose();
     }
 
     @Override
