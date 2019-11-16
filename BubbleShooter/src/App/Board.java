@@ -1,10 +1,12 @@
 package App;
 
 import Menus.StartMenu;
+import java.awt.BorderLayout;
 import Menus.EndGame;
 import Sprites.Bubble;
 import Sprites.Cannon;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -15,6 +17,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Window;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 public class Board extends JPanel implements Runnable, MouseMotionListener, MouseListener {
@@ -34,6 +37,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
     private int mouseX, mouseY, cyclesLeft, angle;
     public int score, limit;
     private Thread animator;
+    private JLabel jlabelScore, jlabelTime;
     private List<List<Bubble>> grid = new ArrayList<>();
     private Cannon can;
 
@@ -47,7 +51,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         addMouseListener(this);
         setBackground(Color.BLACK);
         initBubble();
-        score = 0;
+        initLabels();
         limit = difficulty * 20;
         cyclesLeft = limit * 40; //Convert seconds to cycles
         try {
@@ -80,6 +84,27 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
         super.paintComponent(g);
         updateBubble(g);
         updateCannon(g);
+        updateLabels();
+    }
+    
+    private void initLabels(){
+        score = 0;
+        jlabelScore = new JLabel("Score: ");
+        jlabelScore.setFont(new Font("Verdana",1,20));
+        jlabelScore.setForeground(Color.WHITE);
+        jlabelScore.setAlignmentX(LEFT_ALIGNMENT);
+        jlabelScore.setVerticalAlignment(JLabel.BOTTOM);
+        
+        jlabelTime = new JLabel("");
+        jlabelTime.setFont(new Font("Verdana",1,20));
+        jlabelTime.setForeground(Color.WHITE);
+        jlabelTime.setHorizontalAlignment(JLabel.LEFT);
+        jlabelTime.setVerticalAlignment(JLabel.BOTTOM);
+         
+        this.add(jlabelScore);
+        this.add(jlabelTime);
+        System.out.println(this.getWidth());
+        System.out.println(this.getHeight());
     }
 
     private void initCannon() throws Exception {
@@ -121,9 +146,17 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
             }
         }
     }
+    
+    private void updateLabels(){
+        jlabelScore.setText("Bubbles: " + Integer.toString(score));
+        jlabelTime.setText("Time Left: " + Integer.toString(limit));
+    }
 
     private void cycle() {
         cyclesLeft--;
+        if (cyclesLeft % 40 == 0){
+            limit--;
+        }
     }
 
     @Override
@@ -157,7 +190,7 @@ public class Board extends JPanel implements Runnable, MouseMotionListener, Mous
 
             beforeTime = System.currentTimeMillis();
         }
-        new EndGame().setVisible(true);
+        new EndGame(score).setVisible(true);
         Window win = SwingUtilities.getWindowAncestor(this);
         win.dispose();
     }

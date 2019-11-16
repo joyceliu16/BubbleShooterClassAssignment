@@ -1,7 +1,6 @@
 
 package App;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 public class Application extends JFrame {
@@ -18,7 +17,7 @@ public class Application extends JFrame {
         setSize(1250, 720);
 
         setTitle("Bubble Vacuum");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }    
     
